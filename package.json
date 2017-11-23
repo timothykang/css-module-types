@@ -1,0 +1,39 @@
+{
+  "name": "css-module-types",
+  "version": "0.1.0",
+  "description": "TypeScript Language Service Plugin for CSS modules.",
+  "author": "Tim Kang",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timothykang/css-module-types.git"
+  },
+  "keywords": [
+    "CSS",
+    "modules",
+    "TypeScript",
+    "plugin"
+  ],
+  "scripts": {
+    "publishOnly": "tsc"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "dependencies": {
+    "icss-utils": "^3.0.1",
+    "postcss": "^6.0.14"
+  },
+  "peerDependencies": {
+    "typescript": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.90",
+    "postcss-icss-selectors": "^2.0.3",
+    "typescript": "^2.6.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"lib": ["ES5"],
+		"strict": true,
+		"target": "ES5"
+	},
+	"include": [
+		"ambient.d.ts",
+		"index.ts"
+	]
+}

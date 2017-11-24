@@ -1,6 +1,6 @@
 {
   "name": "css-module-types",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "TypeScript Language Service Plugin for CSS modules.",
   "author": "Tim Kang",
   "license": "Apache-2.0",

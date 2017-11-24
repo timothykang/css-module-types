@@ -14,13 +14,26 @@ npm install --save-dev css-module-types
 
 ## Usage
 
-Add plugin to `tsconfig.json`:
+Add declaration to `global.d.ts`:
 
-```json
-{
-  "compilerOptions": {
-    "plugins": [ { "name": "css-module-types" } ]
-  }
+```ts
+declare module '*.css' {
+  const exports: { [exportName: string]: string };
+  export = exports;
 }
 ```
 
+Add plugin to `tsconfig.json`:
+
+```
+{
+  "compilerOptions": {
+    "plugins": [ { "name": "css-module-types" } ],
+    ...
+  },
+  "include": [
+    "global.d.ts",
+    ...
+  ]
+}
+```

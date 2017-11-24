@@ -50,26 +50,24 @@ export = function init({ typescript: ts }: { typescript: typeof ts_module }) {
       return sourceFile;
     }
 
-    info.languageServiceHost.resolveModuleNames = (moduleNames, containingFile) => {
-      const options = info.languageServiceHost.getCompilationSettings();
+    if (info.languageServiceHost.resolveModuleNames) {
+      const rmn = info.languageServiceHost.resolveModuleNames.bind(info.languageServiceHost);
 
-      return moduleNames.reduce((moduleNames, moduleName) => {
-        if (isRelativeCSS(moduleName)) {
-          moduleNames.push({
-            resolvedFileName: path.resolve(path.dirname(containingFile), moduleName),
-            extension: ts_module.Extension.Dts,
-          });
-        } else {
-          const resolved = ts.resolveModuleName(moduleName, containingFile, options, ts.sys).resolvedModule;
+      info.languageServiceHost.resolveModuleNames = (moduleNames, containingFile, reusedNames) => {
+        const resolvedCSS: ts.ResolvedModuleFull[] = [];
 
-          if (resolved) {
-            moduleNames.push(resolved);
+        return rmn(moduleNames.filter(moduleName => {
+          if (isRelativeCSS(moduleName)) {
+            resolvedCSS.push({
+              resolvedFileName: path.resolve(path.dirname(containingFile), moduleName),
+              extension: ts_module.Extension.Dts,
+            });
+            return false;
           }
-        }
-
-        return moduleNames;
-      }, [] as ts.ResolvedModuleFull[]);
-    };
+          return true;
+        }), containingFile, reusedNames).concat(resolvedCSS);
+      };
+    }
 
     return info.languageService;
   }

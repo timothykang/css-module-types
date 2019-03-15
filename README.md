@@ -37,3 +37,37 @@ Add plugin to `tsconfig.json`:
   ]
 }
 ```
+
+## Css modules with default exports
+
+In case when you are importing css modules as default export:
+
+```ts
+import styles from 'some.css'
+```
+
+ add confifuration parameter in `tsconfig.json` file:
+
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [ { 
+        "name": "css-module-types",
+        "defaultExport": true
+    } ],
+    ...
+  }
+}
+```
+
+## Visual Studio Code integration:
+
+1. install `typescript` and this package localy in project: `npm i typescript css-module-types --save-dev`
+
+2. specify `"typescript.tsdk": "./node_modules/typescript/lib"` in `.vccode/settings.json`
+
+3. switch typescript compiler to workspace version of typescript
+
+4. restart VSCode.
+

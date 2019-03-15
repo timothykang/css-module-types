@@ -18,9 +18,18 @@ export = function init({ typescript: ts }: { typescript: typeof ts_module }) {
 
     function getDtsSnapshot(scriptSnapshot: ts.IScriptSnapshot) {
       const css = scriptSnapshot.getText(0, scriptSnapshot.getLength());
-      const dts = Object.keys(extractICSS(processor.process(css).root).icssExports)
+
+      const keys = Object.keys(extractICSS(processor.process(css).root).icssExports);
+      let dts:string;
+
+      if (info.config.defaultExport) {
+        dts = `declare const styles: { ${keys.map(exportName => `${exportName}: string;`).join('')} }; export default styles;`;
+      } else {
+        dts = keys
           .map(exportName => `export const ${exportName}: string;`)
           .join('');
+      }
+
       return ts.ScriptSnapshot.fromString(dts);
     }
 
